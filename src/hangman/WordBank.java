@@ -1,5 +1,6 @@
 package hangman;
+import java.util.Random;
 
 abstract class WordBank {
-    //getRandomWord method
+   abstract String getRandomWord();
 }
