@@ -5,51 +5,46 @@ import java.util.Scanner;
 
 public class HangmanGame {
     Scanner keyboard = new Scanner(System.in);
-    int wrongGuessCounter;
-    char[] wrongGuessArray;
+    private int wrongGuessCounter;
+    private char[] wrongGuessArray;
 
     public void playHangman(){
         String choice = "y";
         this.wrongGuessCounter = 0;
         this.wrongGuessArray = new char[]{' ', ' ', ' ', ' ', ' ', ' '};
-        do{
-            char letter;
-            String randomWord = chooseDifficulty();
-            String wordInProgress = new String(new char[randomWord.length()]).replace("\0", "_");
-            System.out.println(wordInProgress);
-            System.out.println(randomWord);
-            String wrongGuesses = new String(wrongGuessArray);
+        char letter;
+        String randomWord = chooseDifficulty();
+        String wordInProgress = new String(new char[randomWord.length()]).replace("\0", "_");
+        System.out.println(wordInProgress);
+        String wrongGuesses = new String(wrongGuessArray);
 
-            while (wrongGuessCounter < 6 && !Objects.equals(wordInProgress, randomWord)) {
-                while (true) {
-                    System.out.print("Guess a letter: ");
-                    String guess = keyboard.next().toLowerCase();
-                    if (guess.length() == 1 && Character.isLetter(guess.charAt(0))){
-                        if (wordInProgress.contains(guess) || wrongGuesses.contains(guess)){
-                            System.out.println("Letter already guessed, please try again.");
-                            continue;
-                        }
-                        letter = guess.charAt(0);
-                        break;
+        while (wrongGuessCounter < 6 && !Objects.equals(wordInProgress, randomWord)) {
+            while (true) {
+                System.out.print("\nGuess a letter: ");
+                String guess = keyboard.next().toLowerCase();
+                if (guess.length() == 1 && Character.isLetter(guess.charAt(0))){
+                    if (wordInProgress.contains(guess) || wrongGuesses.contains(guess)){
+                        System.out.println("Letter already guessed, please try again.");
+                        continue;
                     }
-                    else {
-                        System.out.println("Please enter only one letter. Try Again");
-                    }
+                    System.out.println();
+                    letter = guess.charAt(0);
+                    break;
                 }
-                wordInProgress = guessLetter(letter, randomWord, wordInProgress);
-                wrongGuesses = new String(wrongGuessArray);
-                System.out.println("Wrong guesses: " + wrongGuesses);
+                else {
+                    System.out.println("Please enter only one letter. Try Again");
+                }
             }
-            if (wrongGuessCounter == 6){
-                System.out.print("You lose. Try Again? (y/n): ");
-            }
-            else{
-                System.out.print("You win! Play again? (y/n): ");
-            }
-            choice = keyboard.next();
-            System.out.println();
-        }while (Objects.equals(choice, "y"));
-
+            wordInProgress = guessLetter(letter, randomWord, wordInProgress);
+            wrongGuesses = new String(wrongGuessArray);
+            printHangmanGraphic(wordInProgress, wrongGuesses);
+        }
+        if (wrongGuessCounter == 6){
+            System.out.print("You lose. Try Again? (y/n): ");
+        }
+        else{
+            System.out.print("You win! Play again? (y/n): ");
+        }
     }
 
     public String guessLetter(char letter, String randomWord, String wordInProgress){
@@ -65,7 +60,6 @@ public class HangmanGame {
             wrongGuessArray[wrongGuessCounter] = letter;
             wrongGuessCounter += 1;
         }
-        System.out.println(updatedWordInProgress);
         return updatedWordInProgress;
     }
 
@@ -74,25 +68,93 @@ public class HangmanGame {
         while (true) {
             System.out.print("Choose difficulty (easy/medium/hard): ");
             String difficulty = keyboard.next();
-            if (Objects.equals(difficulty.toLowerCase(), "easy")) {
-                EasyWordBank easyWordBank = new EasyWordBank();
-                randomWord = easyWordBank.getRandomWord();
-                return randomWord;
-            } else if (Objects.equals(difficulty.toLowerCase(), "medium")) {
-                MediumWordBank mediumWordBank = new MediumWordBank();
-                randomWord = mediumWordBank.getRandomWord();
-                return randomWord;
-            } else if (Objects.equals(difficulty.toLowerCase(), "hard")) {
-                HardWordBank hardWordBank = new HardWordBank();
-                randomWord = hardWordBank.getRandomWord();
-                return randomWord;
-            } else {
-                System.out.println("Invalid difficulty, please try again.");
+            switch (difficulty.toLowerCase()) {
+                case "easy" -> {
+                    EasyWordBank easyWordBank = new EasyWordBank();
+                    randomWord = easyWordBank.getRandomWord();
+                    System.out.println();
+                    return randomWord;
+                }
+                case "medium" -> {
+                    MediumWordBank mediumWordBank = new MediumWordBank();
+                    randomWord = mediumWordBank.getRandomWord();
+                    System.out.println();
+                    return randomWord;
+                }
+                case "hard" -> {
+                    HardWordBank hardWordBank = new HardWordBank();
+                    randomWord = hardWordBank.getRandomWord();
+                    System.out.println();
+                    return randomWord;
+                }
+                default -> System.out.println("Invalid difficulty, please try again.");
             }
         }
     }
-    public void printHangmanGraphic(){
-
+    public void printHangmanGraphic(String wordInProgress, String wrongGuesses){
+        if (wrongGuessCounter == 0){
+            System.out.println("  +---+  ");
+            System.out.println("  |   |  ");
+            System.out.println("      |   \t" + wordInProgress);
+            System.out.println("      |  ");
+            System.out.println("      |  \tWrong guesses: " + wrongGuesses);
+            System.out.println("      |  ");
+            System.out.println("=========");
+        }
+        else if (wrongGuessCounter == 1){
+            System.out.println("  +---+  ");
+            System.out.println("  |   |  ");
+            System.out.println("  O   |   \t" + wordInProgress);
+            System.out.println("      |  ");
+            System.out.println("      |  \tWrong guesses: " + wrongGuesses);
+            System.out.println("      |  ");
+            System.out.println("=========");
+        }
+        else if (wrongGuessCounter == 2){
+            System.out.println("  +---+  ");
+            System.out.println("  |   |  ");
+            System.out.println("  O   |   \t" + wordInProgress);
+            System.out.println("  |   |  ");
+            System.out.println("      |  \tWrong guesses: " + wrongGuesses);
+            System.out.println("      |  ");
+            System.out.println("=========");
+        }
+        else if (wrongGuessCounter == 3){
+            System.out.println("  +---+  ");
+            System.out.println("  |   |  ");
+            System.out.println("  O   |   \t" + wordInProgress);
+            System.out.println(" /|   |  ");
+            System.out.println("      |  \tWrong guesses: " + wrongGuesses);
+            System.out.println("      |  ");
+            System.out.println("=========");
+        }
+        else if (wrongGuessCounter == 4){
+            System.out.println("  +---+  ");
+            System.out.println("  |   |  ");
+            System.out.println("  O   |   \t" + wordInProgress);
+            System.out.println(" /|\\  |  ");
+            System.out.println("      |  \tWrong guesses: " + wrongGuesses);
+            System.out.println("      |  ");
+            System.out.println("=========");
+        }
+        else if (wrongGuessCounter == 5){
+            System.out.println("  +---+  ");
+            System.out.println("  |   |  ");
+            System.out.println("  O   |   \t" + wordInProgress);
+            System.out.println(" /|\\  |  ");
+            System.out.println(" /    |  \tWrong guesses: " + wrongGuesses);
+            System.out.println("      |  ");
+            System.out.println("=========");
+        }
+        else{
+            System.out.println("  +---+  ");
+            System.out.println("  |   |  ");
+            System.out.println("  O   |   \t" + wordInProgress);
+            System.out.println(" /|\\  |  ");
+            System.out.println(" / \\  |  \tWrong guesses: " + wrongGuesses);
+            System.out.println("      |  ");
+            System.out.println("=========");
+        }
     }
 
 }
