@@ -7,12 +7,12 @@ public class Main {
     public static void main(String[] args){
         Scanner keyboard = new Scanner(System.in);
         HangmanGame hangmanGame = new HangmanGame();
-        String choice = "y";
+        String playAgain;
         do {
             hangmanGame.playHangman();
-            choice = keyboard.next().toLowerCase();
+            playAgain = keyboard.next().toLowerCase();
             System.out.println();
-        }while(Objects.equals(choice, "y"));
+        }while(Objects.equals(playAgain, "y"));
         System.out.println("Bye!");
     }
 }
