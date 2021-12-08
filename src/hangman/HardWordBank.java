@@ -13,3 +13,5 @@ public class HardWordBank extends WordBank{
         return randomWord.toLowerCase();
     }
 }
+
+//Returns one random word from the list to be used in the game.
