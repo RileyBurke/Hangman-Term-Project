@@ -3,10 +3,14 @@ package hangman;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Prints a greeting and starts the Hangman game. Upon completion of the game an option to play again is given.
+ */
 public class Main {
     public static void main(String[] args){
         Scanner keyboard = new Scanner(System.in);
         HangmanGame hangmanGame = new HangmanGame();
+        System.out.println("Welcome to Hangman!\n");
         String playAgain;
         do { //Always runs the game once, then gives a condition to play again.
             hangmanGame.playHangman(); //Starts the hangman game.
