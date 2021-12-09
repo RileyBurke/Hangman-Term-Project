@@ -12,8 +12,8 @@ public class MediumWordBank implements WordBank{
                                 "Wheat"};
 
     /**
-     *
-     * @return A random word of type String from the mediumWordList to be used in the HangmanGame.
+     * Retrieves a random word to be used in the Hangman game.
+     * @return A random word of type String from the mediumWordList to be used in the Hangman game.
      */
     public String getRandomWord() {
         Random random = new Random();

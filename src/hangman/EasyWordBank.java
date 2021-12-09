@@ -11,8 +11,8 @@ public class EasyWordBank implements WordBank {
                             "Pony", "Shelf", "Tree", "Zebra"};
 
     /**
-     *
-     * @return A random word of type String from the easyWordList to be used in the HangmanGame.
+     * Retrieves a random word to be used in the Hangman game.
+     * @return A random word of type String from the easyWordList to be used in the Hangman game.
      */
     public String getRandomWord() {
         Random random = new Random();

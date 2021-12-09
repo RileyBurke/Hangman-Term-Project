@@ -11,8 +11,8 @@ public class HardWordBank implements WordBank{
                             "Pneumonia", "Razzmatazz", "Stymied", "Transgress", "Voyeurism", "Whizzing", "Zigzagging"};
 
     /**
-     *
-     * @return A random word of type String from the hardWordList to be used in the HangmanGame.
+     * Retrieves a random word to be used in the Hangman game.
+     * @return A random word of type String from the hardWordList to be used in the Hangman game.
      */
     public String getRandomWord() {
         Random random = new Random();

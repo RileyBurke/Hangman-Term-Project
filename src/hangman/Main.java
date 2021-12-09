@@ -14,7 +14,9 @@ public class Main {
         String playAgain;
         do { //Always runs the game once, then gives a condition to play again.
             hangmanGame.playHangman(); //Starts the hangman game.
+            IdleTimer idleTimerNewGame = new IdleTimer(); //30-second inactivity timer that ends the program.
             playAgain = keyboard.next().toLowerCase(); //User enters option to play again.
+            idleTimerNewGame.timer.cancel(); //Cancels the inactivity timer.
             System.out.println();
         }while(Objects.equals(playAgain, "y")); //If the user enters 'y' the game will restart, if not the program will end.
         System.out.println("Bye!");
